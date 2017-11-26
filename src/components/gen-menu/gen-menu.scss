@@ -1,3 +1,31 @@
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+@mixin default-transition($speed: .3s) {
+  @include transition(all $speed ease-in-out);
+}
+
+// Placeholder text
+@mixin placeholder($color: $input-color-placeholder) {
+  // Firefox
+  &::-moz-placeholder {
+    color: $color;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+  &:-ms-input-placeholder { color: $color; } // Internet Explorer 10+
+  &::-webkit-input-placeholder  { color: $color; } // Safari and Chrome
+}
+
+@mixin ul-reset() {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 .gen-menu {
   .menu-toggle {
     cursor: pointer;
@@ -86,10 +114,6 @@
             text-decoration: none;
             width: 90%;
             @include default-transition();
-
-            &:hover {
-              color: $theme-accent-bg;
-            }
           }
 
           .fa {
@@ -163,7 +187,6 @@
         @include placeholder(#FFF);
 
         &:focus {
-          border: 1px solid $theme-accent-bg;
           outline: 0;
           @include placeholder(#999);
         }
@@ -197,7 +220,7 @@
     }
   }
 
-  @include bp-xs() {
+  @media only screen and (max-width: 768px) {
     .menu-toggle {
       position: fixed;
       top: 0;

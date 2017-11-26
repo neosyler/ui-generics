@@ -7,6 +7,7 @@ module.exports = {
   tmp: 'tmp/',
   tests: 'src/**/*_test.js',
   buildFolder: 'dist',
+  buildCssFilename: 'ui-generics.css',
   buildJsFilename: 'ui-generics.js',
   banner: '/*!\n' +
     ' * See LICENSE in this repository for license information\n' +

@@ -1,3 +1,17 @@
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  background-clip: padding-box; /* stops bg color from leaking outside the border: */
+}
+
 .gen-carousel {
   @include transform(translateZ(0));
 
@@ -32,7 +46,7 @@
     }
   }
 
-  @include bp-xs() {
+  @media only screen and (max-width: 768px) {
     .swiper-container {
       margin-left: -15px;
       margin-right: -15px;
