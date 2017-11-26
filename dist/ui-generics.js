@@ -9,11 +9,21 @@ angular
 
 angular.module("ui-generics").run(["$templateCache", function($templateCache) {$templateCache.put("src/components/gen-button/gen-button.html","<div class=\"gen-button hidden-print\" data-ng-include=vm.button.template></div>");
 $templateCache.put("src/components/gen-carousel/gen-carousel.html","<div class=\"gen-carousel swiper-container\" data-ng-class=vm.obj.id><div data-ng-if=vm.obj.enabled class=swiper-wrapper data-ng-transclude></div><div data-ng-if=vm.obj.pagination class=\"{{vm.obj.id}}-swiper-pagination swiper-pagination\"></div><div data-ng-if=vm.obj.navigation class=\"{{vm.obj.id}}-swiper-button-prev swiper-button-prev\"><i class=\"fa fa-chevron-left\"></i></div><div data-ng-if=vm.obj.navigation class=\"{{vm.obj.id}}-swiper-button-next swiper-button-next\"><i class=\"fa fa-chevron-right\"></i></div><div data-ng-if=vm.obj.pagination class=\"{{vm.obj.id}}-swiper-scrollbar swiper-scrollbar\"></div><div class=fullscreen-close data-ng-click=vm.close()><span class=\"fa fa-close\"></span></div></div>");
-$templateCache.put("src/components/gen-field/gen-field.html","<div class=gen-field><label data-ng-bind-html=vm.field.label></label><div data-ng-include=vm.field.template></div></div>");
 $templateCache.put("src/components/gen-image/gen-image.html","<div class=\"gen-image {{vm.image.class}}\" data-ng-include=vm.image.template data-ng-style=\"vm.image.bg ? (vm.image.style || \'\') : \'\'\" data-ng-clicked=\"vm.image.clicked && vm.image.clicked($event, vm.image)\"></div>");
+$templateCache.put("src/components/gen-field/gen-field.html","<div class=gen-field><label data-ng-bind-html=vm.field.label></label><div data-ng-include=vm.field.template></div></div>");
 $templateCache.put("src/components/gen-menu/gen-menu.html","<div class=gen-menu data-ng-include=vm.menu.template></div>");
 $templateCache.put("src/components/gen-button/templates/button-only.html","<div class={{vm.button.css.classes}} data-ng-click=\"vm.button.clicked && vm.button.clicked($event, vm.button)\"><span data-ng-if=vm.button.icon class={{vm.button.icon}}></span><div data-ng-if=vm.button.image data-gen-image data-gen-obj=vm.button.image></div><span data-ng-if=vm.button.text class=text data-ng-bind-html=vm.button.text></span></div>");
 $templateCache.put("src/components/gen-button/templates/linked-button.html","<a data-gen-href={{vm.button.link}} data-gen-href-options=\"{preventClick: true}\" target={{vm.button.target}} data-ng-include=vm.button.templates.buttonOnly></a>");
+$templateCache.put("src/components/gen-image/templates/image-bg.html","<meta data-ng-if=\"vm.image.captionText && vm.image.captionText !== \'\'\" itemprop=caption content={{vm.image.captionText}}><meta data-ng-if=vm.image.width itemprop=width content={{vm.image.width}}><meta data-ng-if=vm.image.height itemprop=height content={{vm.image.height}}><meta data-ng-if=vm.image.imgSrc itemprop=image content={{vm.image.imgSrc}}>");
+$templateCache.put("src/components/gen-image/templates/image-bottom-text.html","<!--Static Image--><ng-include src={{vm.image.templates.imageOnly}}></ng-include><!--Bottom Text of Image--><p data-ng-bind-html=vm.image.text class=gen-image-text></p>");
+$templateCache.put("src/components/gen-image/templates/image-checkbox.html","<!--Static Image--><ng-include src={{vm.image.templates.imageOnly}}></ng-include><!--Checkbox--><label class=checkbox><input type=checkbox data-ng-model=vm.image.checked data-ng-disabled=vm.image.disabled data-ng-click=\"vm.image.check($event, vm.image)\">&nbsp;{{vm.image.text}}</label>");
+$templateCache.put("src/components/gen-image/templates/image-full-content.html","<!--Top Text of Image--><p data-ng-if=vm.image.topText data-ng-bind-html=vm.image.topText class=gen-image-text-top></p><!--Linked Image--><ng-include data-ng-if=\"vm.image.src && vm.image.link\" src={{vm.image.templates.linkedImage}}></ng-include><!--Static Image--><ng-include data-ng-if=\"vm.image.src && !vm.image.link\" src={{vm.image.templates.imageOnly}}></ng-include><!--Bottom Text of Image--><p data-ng-bind-html=vm.image.text class=gen-image-text></p>");
+$templateCache.put("src/components/gen-image/templates/image-full.html","<!--Linked Image--> <a data-ng-if=vm.image.link data-gen-href={{vm.image.link}} data-ng-include=vm.image.templates.fullContent></a><!--Static Image--><ng-include data-ng-if=!vm.image.link src=vm.image.templates.fullContent></ng-include><!--Checkbox--><label data-ng-if=vm.image.checkbox class=checkbox><input type=checkbox data-ng-model=vm.image.checked data-ng-disabled=vm.image.disabled data-ng-click=\"vm.image.check($event, vm.image)\">&nbsp;{{vm.image.text}}</label>");
+$templateCache.put("src/components/gen-image/templates/image-only.html","<img data-gen-attr=vm.image.attrs data-ng-click=\"vm.image.clicked && vm.image.clicked($event)\"><meta data-ng-if=\"vm.image.captionText && vm.image.captionText !== \'\'\" itemprop=caption content={{vm.image.captionText}}><meta data-ng-if=vm.image.width itemprop=width content={{vm.image.width}}><meta data-ng-if=vm.image.height itemprop=height content={{m.image.height}}><meta data-ng-if=vm.image.imgSrc itemprop=image content={{vm.image.imgSrc}}>");
+$templateCache.put("src/components/gen-image/templates/image-top-text.html","<!--Top Text of Image--><p data-ng-if=vm.image.topText data-ng-bind-html=vm.image.topText class=gen-image-text-top></p><!--Static Image--><ng-include data-ng-if=\"vm.image.src && !vm.image.link\" src={{vm.image.templates.imageOnly}}></ng-include>");
+$templateCache.put("src/components/gen-image/templates/linked-image-bottom-text.html","<a data-gen-href={{vm.image.link}} data-ng-include=vm.image.templates.bottomTextImage></a>");
+$templateCache.put("src/components/gen-image/templates/linked-image-top-text.html","<a data-gen-href={{vm.image.link}} data-ng-include=vm.image.templates.topTextImage></a>");
+$templateCache.put("src/components/gen-image/templates/linked-image.html","<a data-gen-href={{vm.image.link}} data-ng-include=vm.image.templates.imageOnly></a>");
 $templateCache.put("src/components/gen-field/fields/autocomplete.html","");
 $templateCache.put("src/components/gen-field/fields/button.html","<div data-gen-button data-gen-obj=vm.field.button></div>");
 $templateCache.put("src/components/gen-field/fields/checkbox-group.html","");
@@ -35,16 +45,6 @@ $templateCache.put("src/components/gen-field/fields/tinymce.html","");
 $templateCache.put("src/components/gen-field/fields/upload-button.html","<button class={{vm.field.button.css.classes}} data-ngf-select=vm.field.button.clicked($files) data-ng-model=vm.field.file data-ngf-multiple=vm.field.button.multiple data-ng-disabled=vm.field.button.disabled><span data-ng-if=vm.field.button.icon class={{vm.field.button.icon}}></span><div data-ng-if=vm.field.button.image data-gen-image data-gen-obj=vm.field.button.image></div><span data-ng-if=vm.field.button.text class=text data-ng-bind-html=vm.field.button.text></span></button>");
 $templateCache.put("src/components/gen-field/fields/url.html","");
 $templateCache.put("src/components/gen-field/fields/yes-no.html","");
-$templateCache.put("src/components/gen-image/templates/image-bg.html","<meta data-ng-if=\"vm.image.captionText && vm.image.captionText !== \'\'\" itemprop=caption content={{vm.image.captionText}}><meta data-ng-if=vm.image.width itemprop=width content={{vm.image.width}}><meta data-ng-if=vm.image.height itemprop=height content={{vm.image.height}}><meta data-ng-if=vm.image.imgSrc itemprop=image content={{vm.image.imgSrc}}>");
-$templateCache.put("src/components/gen-image/templates/image-bottom-text.html","<!--Static Image--><ng-include src={{vm.image.templates.imageOnly}}></ng-include><!--Bottom Text of Image--><p data-ng-bind-html=vm.image.text class=gen-image-text></p>");
-$templateCache.put("src/components/gen-image/templates/image-checkbox.html","<!--Static Image--><ng-include src={{vm.image.templates.imageOnly}}></ng-include><!--Checkbox--><label class=checkbox><input type=checkbox data-ng-model=vm.image.checked data-ng-disabled=vm.image.disabled data-ng-click=\"vm.image.check($event, vm.image)\">&nbsp;{{vm.image.text}}</label>");
-$templateCache.put("src/components/gen-image/templates/image-full-content.html","<!--Top Text of Image--><p data-ng-if=vm.image.topText data-ng-bind-html=vm.image.topText class=gen-image-text-top></p><!--Linked Image--><ng-include data-ng-if=\"vm.image.src && vm.image.link\" src={{vm.image.templates.linkedImage}}></ng-include><!--Static Image--><ng-include data-ng-if=\"vm.image.src && !vm.image.link\" src={{vm.image.templates.imageOnly}}></ng-include><!--Bottom Text of Image--><p data-ng-bind-html=vm.image.text class=gen-image-text></p>");
-$templateCache.put("src/components/gen-image/templates/image-full.html","<!--Linked Image--> <a data-ng-if=vm.image.link data-gen-href={{vm.image.link}} data-ng-include=vm.image.templates.fullContent></a><!--Static Image--><ng-include data-ng-if=!vm.image.link src=vm.image.templates.fullContent></ng-include><!--Checkbox--><label data-ng-if=vm.image.checkbox class=checkbox><input type=checkbox data-ng-model=vm.image.checked data-ng-disabled=vm.image.disabled data-ng-click=\"vm.image.check($event, vm.image)\">&nbsp;{{vm.image.text}}</label>");
-$templateCache.put("src/components/gen-image/templates/image-only.html","<img data-gen-attr=vm.image.attrs data-ng-click=\"vm.image.clicked && vm.image.clicked($event)\"><meta data-ng-if=\"vm.image.captionText && vm.image.captionText !== \'\'\" itemprop=caption content={{vm.image.captionText}}><meta data-ng-if=vm.image.width itemprop=width content={{vm.image.width}}><meta data-ng-if=vm.image.height itemprop=height content={{m.image.height}}><meta data-ng-if=vm.image.imgSrc itemprop=image content={{vm.image.imgSrc}}>");
-$templateCache.put("src/components/gen-image/templates/image-top-text.html","<!--Top Text of Image--><p data-ng-if=vm.image.topText data-ng-bind-html=vm.image.topText class=gen-image-text-top></p><!--Static Image--><ng-include data-ng-if=\"vm.image.src && !vm.image.link\" src={{vm.image.templates.imageOnly}}></ng-include>");
-$templateCache.put("src/components/gen-image/templates/linked-image-bottom-text.html","<a data-gen-href={{vm.image.link}} data-ng-include=vm.image.templates.bottomTextImage></a>");
-$templateCache.put("src/components/gen-image/templates/linked-image-top-text.html","<a data-gen-href={{vm.image.link}} data-ng-include=vm.image.templates.topTextImage></a>");
-$templateCache.put("src/components/gen-image/templates/linked-image.html","<a data-gen-href={{vm.image.link}} data-ng-include=vm.image.templates.imageOnly></a>");
 $templateCache.put("src/components/gen-menu/templates/grid.html","<div class=grid-menu><div class=grid-menu-column data-ng-repeat=\"column in vm.menu.columns track by $index\"><div data-ng-if=\"column.type === \'list\'\" class=\"list {{column.class}}\"><a data-gen-href={{item.link}} class=grid-menu-list-item data-ng-repeat=\"item in column.items track by $index\"><div data-ng-if=item.image data-gen-image data-gen-obj=item.image class=menu-image></div><span data-ng-if=item.text data-ng-bind-html=item.text></span></a></div><div data-ng-if=\"column.type === \'content\'\" class=\"content {{column.class}}\"><h2 data-ng-bind-html=column.heading></h2><p data-ng-bind-html=column.text></p><div data-gen-button data-gen-obj=column.button></div></div></div></div>");
 $templateCache.put("src/components/gen-menu/templates/linear.html","<div class=linear-menu><ul><li data-ng-repeat=\"item in vm.menu.items track by $index\"><a data-gen-href={{item.link}}><span>{{item.text}}</span></a></li></ul></div>");
 $templateCache.put("src/components/gen-menu/templates/mobile-menu-item.html","<a data-gen-href={{item.link}} data-ng-click=\"vm.menu.itemClick($event, item)\"><span data-ng-if=item.icon class={{item.icon}}></span><div data-ng-if=item.image data-gen-image data-gen-obj=item.image class=menu-image></div><span class=text>{{item.text}}</span> </a><span data-ng-if=\"item.items.length > 0\" class=fa data-ng-click=\"item.showItems=!item.showItems\" data-ng-class=\"{\'fa-chevron-down\': !item.showItems, \'fa-chevron-up\': item.showItems}\"></span><ul data-ng-if=\"item.showItems && item.items.length > 0\" class=sub-menu data-ng-class=\"{\'active\': item.showItems}\"><li data-ng-repeat=\"item in item.items track by $index\" data-ng-include=vm.menu.itemTemplate></li></ul>");
@@ -1188,6 +1188,34 @@ $templateCache.put("src/components/gen-image/templates/bind-once/linked-image.ht
 
 })();
 
+(function () {
+    'use strict';
+
+    function genCompile($compile) {
+        // directive factory creates a link function
+        return function(scope, element, attrs) {
+            scope.$watch(
+                function (scope) {
+                    // watch the 'compile' expression for changes
+                    return scope.$eval(attrs.genCompile);
+                },
+                function (value) {
+                    // when the 'compile' expression changes
+                    // assign it into the current DOM
+                    element.html(value);
+
+                    // compile the new DOM and link it to the current
+                    // scope.
+                    // NOTE: we only compile .childNodes so that
+                    // we don't get into infinite loop compiling ourselves
+                    $compile(element.contents())(scope);
+                }
+            );
+        };
+    }
+
+    angular.module('ui-generics').directive('genCompile', genCompile);
+})();
 /** globals Swiper,jQuery **/
 (function () {
     function genCarousel() {
@@ -1349,157 +1377,6 @@ $templateCache.put("src/components/gen-image/templates/bind-once/linked-image.ht
 (function () {
     'use strict';
 
-    function genCompile($compile) {
-        // directive factory creates a link function
-        return function(scope, element, attrs) {
-            scope.$watch(
-                function (scope) {
-                    // watch the 'compile' expression for changes
-                    return scope.$eval(attrs.genCompile);
-                },
-                function (value) {
-                    // when the 'compile' expression changes
-                    // assign it into the current DOM
-                    element.html(value);
-
-                    // compile the new DOM and link it to the current
-                    // scope.
-                    // NOTE: we only compile .childNodes so that
-                    // we don't get into infinite loop compiling ourselves
-                    $compile(element.contents())(scope);
-                }
-            );
-        };
-    }
-
-    angular.module('ui-generics').directive('genCompile', genCompile);
-})();
-(function () {
-    'use strict';
-
-    function genHref() {
-        return {
-            restrict: 'A',
-            link: function (scope, element, attrs) {
-                var path = attrs.genHref,
-                    options = (attrs.hasOwnProperty('genHrefOptions') && attrs.genHrefOptions) ? scope.$eval(attrs.genHrefOptions) : null,
-                    params = (options && options.hasOwnProperty('params')) ? options.params : null,
-                    disableItemProp = attrs.hasOwnProperty('genHrefDisableItemProp');
-
-                element.removeAttr('gen-href-options');
-                element.removeAttr('gen-href-disable-item-prop');
-
-                if (!attrs.hasOwnProperty('itemprop') && !disableItemProp) {
-                    element.attr('itemprop', 'url');
-                }
-
-                /**
-                 * Setup for the link
-                 */
-                function setup() {
-                    element.unbind('click');
-                    element.removeAttr('href');
-
-                    if (path === '' || path === '#') {
-                        element.attr('href', 'javascript:void(0)');
-                    } else if (!path.indexOf('#')) { //starts with #
-                        element.bind('click', function () {
-                            var el = jQuery(path);
-
-                            jQuery('html,body').animate({
-                                scrollTop: el.offset().top - 150
-                            }, 'fast');
-                        });
-                    } else if (!path.indexOf('tel') || !path.indexOf('mail')) {
-                        element.attr('href', path);
-                    } else {
-                        element.attr('href', path);
-
-                        if (!options || !options.hasOwnProperty('preventClick') || !options.preventClick) {
-                            element.bind('click', function () {
-                                options.click(path, params);
-                                return false;
-                            });
-                        }
-                    }
-                }
-
-                setup();
-
-                attrs.$observe('genHref', function (newVal) {
-                    if (newVal !== path) {
-                        path = newVal;
-                        setup();
-                    }
-                });
-            }
-        };
-    }
-
-    angular.module('ui-generics').directive('genHref', genHref);
-})();
-(function () {
-    'use strict';
-
-    /** @ngInject */
-    function genField() {
-        var templateDir= 'src/components/copied/gen-field/';
-
-        /** @ngInject genField */
-        function genFieldController() {
-            var vm = this;
-
-            /**
-             * Setup Field Object
-             *
-             * @param obj
-             */
-            function setupField(obj) {
-                vm.field = _.extend({
-                    template: templateDir + 'fields/' + (obj.type || 'text') + '.html'
-                }, obj);
-            }
-
-            /**
-             * Initialization logic
-             */
-            vm.$onInit = function () {
-                setupField(vm.obj);
-            };
-
-            /**
-             * Handle changes
-             *
-             * @param changes
-             */
-            vm.$onChanges = function (changes) {
-                if (changes.obj) {
-                    setupField(changes.obj.currentValue);
-                }
-            };
-        }
-
-        return {
-            restrict: 'A',
-            templateUrl: templateDir + 'gen-field.html',
-            scope: {
-                obj: '<genObj'
-            },
-            controller: genFieldController,
-            controllerAs: 'vm',
-            bindToController: true
-        };
-    }
-
-    angular
-        .module('ui-generics')
-        .directive('genField', genField);
-
-})();
-
-(function () {
-    'use strict';
-
     function genImage() {
 
         function genImageController() {
@@ -1632,6 +1509,129 @@ $templateCache.put("src/components/gen-image/templates/bind-once/linked-image.ht
     angular.module('ui-generics').directive('genImage', genImage);
 })();
 
+(function () {
+    'use strict';
+
+    /** @ngInject */
+    function genField() {
+        var templateDir= 'src/components/copied/gen-field/';
+
+        /** @ngInject genField */
+        function genFieldController() {
+            var vm = this;
+
+            /**
+             * Setup Field Object
+             *
+             * @param obj
+             */
+            function setupField(obj) {
+                vm.field = _.extend({
+                    template: templateDir + 'fields/' + (obj.type || 'text') + '.html'
+                }, obj);
+            }
+
+            /**
+             * Initialization logic
+             */
+            vm.$onInit = function () {
+                setupField(vm.obj);
+            };
+
+            /**
+             * Handle changes
+             *
+             * @param changes
+             */
+            vm.$onChanges = function (changes) {
+                if (changes.obj) {
+                    setupField(changes.obj.currentValue);
+                }
+            };
+        }
+
+        return {
+            restrict: 'A',
+            templateUrl: templateDir + 'gen-field.html',
+            scope: {
+                obj: '<genObj'
+            },
+            controller: genFieldController,
+            controllerAs: 'vm',
+            bindToController: true
+        };
+    }
+
+    angular
+        .module('ui-generics')
+        .directive('genField', genField);
+
+})();
+
+(function () {
+    'use strict';
+
+    function genHref() {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var path = attrs.genHref,
+                    options = (attrs.hasOwnProperty('genHrefOptions') && attrs.genHrefOptions) ? scope.$eval(attrs.genHrefOptions) : null,
+                    params = (options && options.hasOwnProperty('params')) ? options.params : null,
+                    disableItemProp = attrs.hasOwnProperty('genHrefDisableItemProp');
+
+                element.removeAttr('gen-href-options');
+                element.removeAttr('gen-href-disable-item-prop');
+
+                if (!attrs.hasOwnProperty('itemprop') && !disableItemProp) {
+                    element.attr('itemprop', 'url');
+                }
+
+                /**
+                 * Setup for the link
+                 */
+                function setup() {
+                    element.unbind('click');
+                    element.removeAttr('href');
+
+                    if (path === '' || path === '#') {
+                        element.attr('href', 'javascript:void(0)');
+                    } else if (!path.indexOf('#')) { //starts with #
+                        element.bind('click', function () {
+                            var el = jQuery(path);
+
+                            jQuery('html,body').animate({
+                                scrollTop: el.offset().top - 150
+                            }, 'fast');
+                        });
+                    } else if (!path.indexOf('tel') || !path.indexOf('mail')) {
+                        element.attr('href', path);
+                    } else {
+                        element.attr('href', path);
+
+                        if (!options || !options.hasOwnProperty('preventClick') || !options.preventClick) {
+                            element.bind('click', function () {
+                                options.click(path, params);
+                                return false;
+                            });
+                        }
+                    }
+                }
+
+                setup();
+
+                attrs.$observe('genHref', function (newVal) {
+                    if (newVal !== path) {
+                        path = newVal;
+                        setup();
+                    }
+                });
+            }
+        };
+    }
+
+    angular.module('ui-generics').directive('genHref', genHref);
+})();
 (function () {
     'use strict';
 

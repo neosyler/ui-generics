@@ -200,6 +200,7 @@
 
 .gen-menu .mobile-menu .search {
   display: inline-block;
+  font-size: 16px;
   width: 100%;
 }
 
@@ -244,7 +245,6 @@
 }
 
 .gen-menu .mobile-menu .search .btn {
-  float: right;
   width: 19%;
 }
 
