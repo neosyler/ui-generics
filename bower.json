@@ -1,7 +1,10 @@
 {
   "name": "ui-generics",
   "version": "0.0.1",
-  "main": "./dist/ui-generics.js",
+  "main": [
+    "./dist/ui-generics.css",
+    "./dist/ui-generics.js"
+  ],
   "description": "Generic components for web apps",
   "homepage": "https://github.com/neosyler/ui-generics",
   "private": false,
