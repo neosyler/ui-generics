@@ -1,0 +1,6 @@
+<button class="{{vm.field.button.css.classes}}" data-ngf-select="vm.field.button.clicked($files)" data-ng-model="vm.field.file"
+     data-ngf-multiple="vm.field.button.multiple" data-ng-disabled="vm.field.button.disabled">
+    <span data-ng-if="vm.field.button.icon" class="{{vm.field.button.icon}}"></span>
+    <div data-ng-if="vm.field.button.image" data-gen-image data-gen-obj="vm.field.button.image"></div>
+    <span data-ng-if="vm.field.button.text" class="text" data-ng-bind-html="vm.field.button.text"></span>
+</button>

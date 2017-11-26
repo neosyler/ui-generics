@@ -43,6 +43,12 @@
   }
 }
 
+.gen-field select {
+  border-radius: 0;
+  background-clip: padding-box;
+  /* stops bg color from leaking outside the border: */
+}
+
 .gen-menu .menu-toggle {
   cursor: pointer;
 }
@@ -136,7 +142,7 @@
 .gen-menu .mobile-menu ul.menu li a {
   color: #FFF;
   display: inline-block;
-  padding: 15px 15px;
+  padding: 0 15px;
   text-decoration: none;
   width: 90%;
   transition: all 0.3s ease-in-out;
@@ -194,7 +200,6 @@
 
 .gen-menu .mobile-menu .search {
   display: inline-block;
-  margin: 10px 0;
   width: 100%;
 }
 
@@ -202,7 +207,7 @@
   background: #000;
   border: 2px solid #FFF;
   color: #FFF;
-  width: 79%;
+  width: 75%;
   margin-right: 2%;
   height: 36px;
   padding: 10px;

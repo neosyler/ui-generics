@@ -14,10 +14,6 @@
                 <i class="fa" data-ng-class="{'fa-sign-in': !vm.menu.loggedIn, 'fa-sign-out': vm.menu.loggedIn}"></i>
                 <span>{{!vm.menu.loggedIn ? 'Sign In' : 'Sign Out'}}</span>
             </div>
-            <div class="sign-in-out theme-accent-bg-as-fg" data-ng-click="vm.createClick()" data-ng-if="!vm.menu.loggedIn">
-                <i class="fa fa-sign-in"></i>
-                <span>Create Account</span>
-            </div>
         </div>
         <div class="close-menu" data-ng-click="vm.toggleMenu()">
             <span class="fa fa-close fa-fw"></span>

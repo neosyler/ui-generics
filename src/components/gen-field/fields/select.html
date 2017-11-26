@@ -1,0 +1,4 @@
+<select id="{{vm.field.id}}" name="{{vm.field.name}}" class="form-control" data-ng-model="vm.field.model[vm.field.id]"
+        data-ng-required="vm.field.required" data-ng-disabled="vm.field.disabled" data-ng-change="vm.field.changed($event, vm.field)"
+        data-ng-options="option.value as option.text for option in vm.field.select.items">
+</select>
