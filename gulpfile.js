@@ -16,14 +16,30 @@ gulp.task('clean', function () {
     .pipe(plugins.clean());
 });
 
-gulp.task('scripts', function () {
+gulp.task('partials', function () {
+  return gulp.src(config.srcHtml)
+    .pipe(plugins.htmlmin({
+      removeEmptyAttributes: true,
+      removeAttributeQuotes: true,
+      collapseBooleanAttributes: true,
+      collapseWhitespace: true
+    }))
+    .pipe(plugins.angularTemplatecache('templateCacheHtml.js', {
+      module: 'ui-generics',
+      root: 'src'
+    }))
+    .pipe(gulp.dest(config.tmp));
+});
 
-  return gulp.src(config.srcJs)
+gulp.task('scripts', ['partials'], function () {
+
+  return gulp.src(config.tmp + '*.js')
 
     // jshint
     .pipe(plugins.jshint())
     .pipe(plugins.jshint.reporter('jshint-stylish'))
     .pipe(plugins.if(ciMode, plugins.jshint.reporter('fail')))
+    .pipe(plugins.addSrc(config.srcJs))
 
     // package
     .pipe(plugins.concat(config.buildJsFilename))
