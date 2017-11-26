@@ -1,16 +1,16 @@
 (function() {
   'use strict';
 
-  function uiGenericsProvider($locationProvider) {
-    var $location = $locationProvider.$get(),
-      host = ($location.host().indexOf(':') !== -1) ? $location.host().substring(0, $location.host().indexOf(':')) : $location.host();
+  function uiGenericsProvider($windowProvider) {
+    var location = $windowProvider.$get().location,
+      host = (location.host.indexOf(':') !== -1) ? location.host.substring(0, location.host.indexOf(':')) : location.host;
 
     /**
      * Default API Url
      *
      * @type {string}
      */
-    this.apiUrl = $location.protocol + '://' + host + '/api';
+    this.apiUrl = location.protocol + '://' + host + '/api';
 
     /**
      * Authentication context used in POST, PUT and DELETE REST requests
