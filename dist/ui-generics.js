@@ -10,16 +10,16 @@ angular
 (function() {
   'use strict';
 
-  function uiGenericsProvider($locationProvider) {
-    var $location = $locationProvider.$get(),
-      host = ($location.host().indexOf(':') !== -1) ? $location.host().substring(0, $location.host().indexOf(':')) : $location.host();
+  function uiGenericsProvider($windowProvider) {
+    var location = $windowProvider.$get().location,
+      host = (location.host.indexOf(':') !== -1) ? location.host.substring(0, location.host.indexOf(':')) : location.host;
 
     /**
      * Default API Url
      *
      * @type {string}
      */
-    this.apiUrl = $location.protocol + '://' + host + '/api';
+    this.apiUrl = location.protocol + '://' + host + '/api';
 
     /**
      * Authentication context used in POST, PUT and DELETE REST requests
@@ -1297,6 +1297,34 @@ angular
 (function () {
     'use strict';
 
+    function genCompile($compile) {
+        // directive factory creates a link function
+        return function(scope, element, attrs) {
+            scope.$watch(
+                function (scope) {
+                    // watch the 'compile' expression for changes
+                    return scope.$eval(attrs.genCompile);
+                },
+                function (value) {
+                    // when the 'compile' expression changes
+                    // assign it into the current DOM
+                    element.html(value);
+
+                    // compile the new DOM and link it to the current
+                    // scope.
+                    // NOTE: we only compile .childNodes so that
+                    // we don't get into infinite loop compiling ourselves
+                    $compile(element.contents())(scope);
+                }
+            );
+        };
+    }
+
+    angular.module('ui-generics').directive('genCompile', genCompile);
+})();
+(function () {
+    'use strict';
+
     function genImage() {
 
         function genImageController() {
@@ -1429,34 +1457,6 @@ angular
     angular.module('ui-generics').directive('genImage', genImage);
 })();
 
-(function () {
-    'use strict';
-
-    function genCompile($compile) {
-        // directive factory creates a link function
-        return function(scope, element, attrs) {
-            scope.$watch(
-                function (scope) {
-                    // watch the 'compile' expression for changes
-                    return scope.$eval(attrs.genCompile);
-                },
-                function (value) {
-                    // when the 'compile' expression changes
-                    // assign it into the current DOM
-                    element.html(value);
-
-                    // compile the new DOM and link it to the current
-                    // scope.
-                    // NOTE: we only compile .childNodes so that
-                    // we don't get into infinite loop compiling ourselves
-                    $compile(element.contents())(scope);
-                }
-            );
-        };
-    }
-
-    angular.module('ui-generics').directive('genCompile', genCompile);
-})();
 (function () {
     'use strict';
 
