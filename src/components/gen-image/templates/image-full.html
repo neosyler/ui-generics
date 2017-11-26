@@ -1,0 +1,11 @@
+<!--Linked Image-->
+<a data-ng-if="vm.image.link" data-gen-href="{{vm.image.link}}" data-ng-include="vm.image.templates.fullContent"></a>
+
+<!--Static Image-->
+<ng-include data-ng-if="!vm.image.link" src="vm.image.templates.fullContent"></ng-include>
+
+<!--Checkbox-->
+<label data-ng-if="vm.image.checkbox" class="checkbox">
+    <input type="checkbox" data-ng-model="vm.image.checked" data-ng-disabled="vm.image.disabled"
+           data-ng-click="vm.image.check($event, vm.image)">&nbsp;{{vm.image.text}}
+</label>

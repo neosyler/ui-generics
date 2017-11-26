@@ -1,0 +1,8 @@
+<!--Static Image-->
+<ng-include src="{{::vm.image.templates.imageOnly}}"></ng-include>
+
+<!--Checkbox-->
+<label class="checkbox">
+    <input type="checkbox" data-ng-model="vm.image.checked" data-ng-disabled="::vm.image.disabled"
+           data-ng-click="vm.image.check($event, vm.image)">&nbsp;{{::vm.image.text}}
+</label>

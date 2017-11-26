@@ -1,0 +1,47 @@
+<div class="menu-toggle">
+    <span class="fa fa-bars fa-fw" data-ng-click="vm.toggleMenu()"></span>
+</div>
+<div class="mobile-menu-overlay" data-ng-class="{'active': !vm.menu.hidden}" data-ng-click="vm.toggleMenu()"></div>
+<div class="mobile-menu" data-ng-class="{'active': !vm.menu.hidden}">
+    <!--User/Guest Login-->
+    <div class="user">
+        <div class="avatar-block">
+            <span class="fa fa-user fa-fw"></span>
+        </div>
+        <div class="welcome-block">
+            <div class="name"><strong>HELLO,</strong> {{vm.menu.user.first_name}} {{vm.menu.user.last_name}}</div>
+            <div class="sign-in-out theme-accent-bg-as-fg" data-ng-click="vm.loginClick()">
+                <i class="fa" data-ng-class="{'fa-sign-in': !vm.menu.loggedIn, 'fa-sign-out': vm.menu.loggedIn}"></i>
+                <span>{{!vm.menu.loggedIn ? 'Sign In' : 'Sign Out'}}</span>
+            </div>
+            <div class="sign-in-out theme-accent-bg-as-fg" data-ng-click="vm.createClick()" data-ng-if="!vm.menu.loggedIn">
+                <i class="fa fa-sign-in"></i>
+                <span>Create Account</span>
+            </div>
+        </div>
+        <div class="close-menu" data-ng-click="vm.toggleMenu()">
+            <span class="fa fa-close fa-fw"></span>
+        </div>
+    </div>
+    <!--Search / Shopping Cart-->
+    <div class="search">
+        <input type="text" name="search" value="" placeholder="Search..." data-ng-model="vm.searchResults"
+               data-uib-typeahead="link for links in vm.search($viewValue)" data-typeahead-on-select="vm.searchClick"
+               data-typeahead-template-url="customTemplate.html"/>
+        <div class="btn btn-info">
+            <span class="text">GO</span>
+        </div>
+    </div>
+    <!--Menu-->
+    <ul class="menu">
+        <li data-ng-repeat="item in vm.menu.items track by $index" data-ng-include="vm.menu.itemTemplate"></li>
+    </ul>
+    <!--Social Links-->
+    <div class="social-links" data-gen-button-list data-gen-obj="vm.menu.socialLinks"></div>
+</div>
+
+<script type="text/ng-template" id="customTemplate.html">
+    <a data-gen-href="{{match.model.href}}">
+        <span ng-bind-html="match.model.label | uibTypeaheadHighlight:query"></span>
+    </a>
+</script>

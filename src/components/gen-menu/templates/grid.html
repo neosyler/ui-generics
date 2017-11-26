@@ -1,0 +1,15 @@
+<div class="grid-menu">
+    <div class="grid-menu-column" data-ng-repeat="column in vm.menu.columns track by $index">
+        <div data-ng-if="column.type === 'list'" class="list {{column.class}}">
+            <a data-gen-href="{{item.link}}" class="grid-menu-list-item" data-ng-repeat="item in column.items track by $index">
+                <div data-ng-if="item.image" data-gen-image data-gen-obj="item.image" class="menu-image"></div>
+                <span data-ng-if="item.text" data-ng-bind-html="item.text"></span>
+            </a>
+        </div>
+        <div data-ng-if="column.type === 'content'" class="content {{column.class}}">
+            <h2 data-ng-bind-html="column.heading"></h2>
+            <p data-ng-bind-html="column.text"></p>
+            <div data-gen-button data-gen-obj="column.button"></div>
+        </div>
+    </div>
+</div>

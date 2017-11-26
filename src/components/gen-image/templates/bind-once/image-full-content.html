@@ -1,0 +1,11 @@
+<!--Top Text of Image-->
+<p data-ng-if="vm.image.topText" data-ng-bind-html="::vm.image.topText" class="gen-image-text-top"></p>
+
+<!--Linked Image-->
+<ng-include data-ng-if="vm.image.src && vm.image.link" src="{{::vm.image.templates.linkedImage}}"></ng-include>
+
+<!--Static Image-->
+<ng-include data-ng-if="vm.image.src && !vm.image.link" src="{{::vm.image.templates.imageOnly}}"></ng-include>
+
+<!--Bottom Text of Image-->
+<p data-ng-bind-html="::vm.image.text" class="gen-image-text"></p>

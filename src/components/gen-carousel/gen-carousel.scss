@@ -1,0 +1,41 @@
+.gen-carousel {
+  @include transform(translateZ(0));
+
+  .swiper-container {
+    width: 100%;
+  }
+
+  .swiper-button-prev, .swiper-button-next {
+    background: none !important;
+
+    .fa {
+      color: #000;
+      font-size: 40px;
+      text-shadow: 1px 1px 2px #FFF, 0 0 5px #FFF, 0 0 5px #FFF;
+    }
+  }
+
+  .fullscreen-close {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 5px;
+    background: #000;
+    z-index: 140;
+    cursor: pointer;
+    @include border-radius(10px);
+
+    .fa {
+      font-size: 28px;
+      color: #FFF;
+    }
+  }
+
+  @include bp-xs() {
+    .swiper-container {
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "ui-generics",
+  "version": "0.0.1",
+  "main": "./dist/ui-generics.js",
+  "description": "Generic components for web apps",
+  "homepage": "https://github.com/neosyler/ui-generics",
+  "private": false,
+  "authors": [
+    "Jason T. Stiles"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/neosyler/ui-generics.git"
+  },
+  "keywords": [
+    "angularjs"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "angular": "1.6.x",
+    "angular-mocks": "~1.6.x"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "build.conf.js",
+    "gulpfile.js",
+    "karma.conf.js",
+    "package.json"
+  ]
+}

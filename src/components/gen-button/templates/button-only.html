@@ -1,0 +1,5 @@
+<div class="{{vm.button.css.classes}}" data-ng-click="vm.button.clicked && vm.button.clicked($event, vm.button)">
+    <span data-ng-if="vm.button.icon" class="{{vm.button.icon}}"></span>
+    <div data-ng-if="vm.button.image" data-gen-image data-gen-obj="vm.button.image"></div>
+    <span data-ng-if="vm.button.text" class="text" data-ng-bind-html="vm.button.text"></span>
+</div>

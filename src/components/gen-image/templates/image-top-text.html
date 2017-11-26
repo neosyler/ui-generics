@@ -1,0 +1,5 @@
+<!--Top Text of Image-->
+<p data-ng-if="vm.image.topText" data-ng-bind-html="vm.image.topText" class="gen-image-text-top"></p>
+
+<!--Static Image-->
+<ng-include data-ng-if="vm.image.src && !vm.image.link" src="{{vm.image.templates.imageOnly}}"></ng-include>

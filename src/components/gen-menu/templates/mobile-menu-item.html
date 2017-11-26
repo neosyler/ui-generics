@@ -1,0 +1,12 @@
+<a data-gen-href="{{item.link}}" data-ng-click="vm.menu.itemClick($event, item)">
+    <span data-ng-if="item.icon" class="{{item.icon}}"></span>
+    <div data-ng-if="item.image" data-gen-image data-gen-obj="item.image" class="menu-image"></div>
+    <span class="text">{{item.text}}</span>
+</a>
+<span data-ng-if="item.items.length > 0" class="fa" data-ng-click="item.showItems=!item.showItems"
+      data-ng-class="{'fa-chevron-down': !item.showItems, 'fa-chevron-up': item.showItems}"></span>
+<ul data-ng-if="item.showItems && item.items.length > 0" class="sub-menu" data-ng-class="{'active': item.showItems}">
+    <li data-ng-repeat="item in item.items track by $index" data-ng-include="vm.menu.itemTemplate"></li>
+</ul>
+
+
