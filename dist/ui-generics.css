@@ -276,14 +276,14 @@
     left: 0;
     width: 100px;
     height: 100px;
-    background: #9C0F17;
+    background: #000;
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 2%, 0 100%);
     clip-path: polygon(0 0, 100% 0, 100% 2%, 0 100%);
     text-align: center;
   }
   .gen-menu .menu-toggle .fa {
     position: relative;
-    top: 10px;
+    top: -5px;
     left: -20px;
   }
   .gen-menu .mobile-menu {
