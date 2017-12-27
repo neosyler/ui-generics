@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function genHref() {
+    function genHref($state) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -39,10 +39,15 @@
                     } else {
                         element.attr('href', path);
 
-                        if (!options || !options.hasOwnProperty('preventClick') || !options.preventClick) {
+                        if (options && options.hasOwnProperty('click')) {
                             element.bind('click', function () {
                                 options.click(path, params);
                                 return false;
+                            });
+                        } else {
+                            //assume a state
+                            element.bind('click', function () {
+                              $state.go(path, params);
                             });
                         }
                     }
