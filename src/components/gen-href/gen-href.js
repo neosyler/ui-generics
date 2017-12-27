@@ -39,17 +39,19 @@
                     } else {
                         element.attr('href', path);
 
-                        if (options && options.hasOwnProperty('click')) {
-                            element.bind('click', function () {
+                        if (options) {
+                            if (options.hasOwnProperty('click')) {
+                              element.bind('click', function () {
                                 options.click(path, params);
                                 return false;
-                            });
-                        } else {
-                            //assume a state
-                            element.bind('click', function () {
-                              $state.go(path, params);
-                              return false;
-                            });
+                              });
+                            } else {
+                              //assume a state
+                              element.bind('click', function () {
+                                $state.go(options.state, params);
+                                return false;
+                              });
+                            }
                         }
                     }
                 }
