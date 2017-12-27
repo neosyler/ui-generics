@@ -1,8 +1,7 @@
 UI-GENERICS - Generic components for web apps
 =======
 
-A simple AngularJS directive that uses document.exec('copy') and updates the user's clipboard.
-
+Generic and custom components for web apps for AngularJS 1.6+.
 
 ## How to get it ? 
 

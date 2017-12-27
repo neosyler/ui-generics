@@ -1,7 +1,7 @@
 {
   "name": "ui-generics",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.6",
   "description": "Generic components for web apps",
   "repository": "https://github.com/neosyler/ui-generics",
   "license": "MIT",
