@@ -48,6 +48,7 @@
                             //assume a state
                             element.bind('click', function () {
                               $state.go(path, params);
+                              return false;
                             });
                         }
                     }

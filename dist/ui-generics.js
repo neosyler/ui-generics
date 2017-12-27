@@ -10,8 +10,8 @@ angular
 angular.module("ui-generics").run(["$templateCache", function($templateCache) {$templateCache.put("src/components/gen-button/gen-button.html","<div class=\"gen-button hidden-print\" data-ng-include=vm.button.template></div>");
 $templateCache.put("src/components/gen-carousel/gen-carousel.html","<div class=\"gen-carousel swiper-container\" data-ng-class=vm.obj.id><div data-ng-if=vm.obj.enabled class=swiper-wrapper data-ng-transclude></div><div data-ng-if=vm.obj.pagination class=\"{{vm.obj.id}}-swiper-pagination swiper-pagination\"></div><div data-ng-if=vm.obj.navigation class=\"{{vm.obj.id}}-swiper-button-prev swiper-button-prev\"><i class=\"fa fa-chevron-left\"></i></div><div data-ng-if=vm.obj.navigation class=\"{{vm.obj.id}}-swiper-button-next swiper-button-next\"><i class=\"fa fa-chevron-right\"></i></div><div data-ng-if=vm.obj.pagination class=\"{{vm.obj.id}}-swiper-scrollbar swiper-scrollbar\"></div><div class=fullscreen-close data-ng-click=vm.close()><span class=\"fa fa-close\"></span></div></div>");
 $templateCache.put("src/components/gen-field/gen-field.html","<div class=gen-field><label data-ng-bind-html=vm.field.label></label><div data-ng-include=vm.field.template></div></div>");
-$templateCache.put("src/components/gen-menu/gen-menu.html","<div class=gen-menu data-ng-include=vm.menu.template></div>");
 $templateCache.put("src/components/gen-image/gen-image.html","<div class=\"gen-image {{vm.image.class}}\" data-ng-include=vm.image.template data-ng-style=\"vm.image.bg ? (vm.image.style || \'\') : \'\'\" data-ng-clicked=\"vm.image.clicked && vm.image.clicked($event, vm.image)\"></div>");
+$templateCache.put("src/components/gen-menu/gen-menu.html","<div class=gen-menu data-ng-include=vm.menu.template></div>");
 $templateCache.put("src/components/gen-button/templates/button-only.html","<div class={{vm.button.css.classes}} data-ng-click=\"vm.button.clicked && vm.button.clicked($event, vm.button)\"><span data-ng-if=vm.button.icon class={{vm.button.icon}}></span><div data-ng-if=vm.button.image data-gen-image data-gen-obj=vm.button.image></div><span data-ng-if=vm.button.text class=text data-ng-bind-html=vm.button.text></span></div>");
 $templateCache.put("src/components/gen-button/templates/linked-button.html","<a data-gen-href={{vm.button.link}} data-gen-href-options=\"vm.button.hrefOptions || {preventClick: true}\" target={{vm.button.target}} data-ng-include=vm.button.templates.buttonOnly></a>");
 $templateCache.put("src/components/gen-field/fields/autocomplete.html","");
@@ -1081,42 +1081,6 @@ $templateCache.put("src/components/gen-image/templates/bind-once/linked-image.ht
     .factory('uigRestService', RestService);
 
 })();
-(function () {
-    'use strict';
-
-    function genAttr() {
-        return {
-            restrict: 'A',
-            link: function ($scope, $element, $attrs) {
-                var attr = $scope.$eval($attrs.genAttr),
-                    /**
-                     * Set attributes on element
-                     *
-                     * @param attrs
-                     */
-                    setAttrs = function (attrs) {
-                        _.forIn(attrs, function (v, k) {
-                            $element.attr(k, v);
-                        });
-                    };
-
-                $element.removeAttr('gen-attr');
-
-                if (attr) {
-                    setAttrs(attr);
-                }
-
-                $scope.$watch($attrs.genAttr, function (newVal, oldVal) {
-                    if (newVal !== oldVal) {
-                        setAttrs(newVal);
-                    }
-                });
-            }
-        };
-    }
-
-    angular.module('ui-generics').directive('genAttr', genAttr);
-})();
 /*globals _*/
 /*eslint angular/module-getter: 0*/
 (function () {
@@ -1188,34 +1152,6 @@ $templateCache.put("src/components/gen-image/templates/bind-once/linked-image.ht
 
 })();
 
-(function () {
-    'use strict';
-
-    function genCompile($compile) {
-        // directive factory creates a link function
-        return function(scope, element, attrs) {
-            scope.$watch(
-                function (scope) {
-                    // watch the 'compile' expression for changes
-                    return scope.$eval(attrs.genCompile);
-                },
-                function (value) {
-                    // when the 'compile' expression changes
-                    // assign it into the current DOM
-                    element.html(value);
-
-                    // compile the new DOM and link it to the current
-                    // scope.
-                    // NOTE: we only compile .childNodes so that
-                    // we don't get into infinite loop compiling ourselves
-                    $compile(element.contents())(scope);
-                }
-            );
-        };
-    }
-
-    angular.module('ui-generics').directive('genCompile', genCompile);
-})();
 /** globals Swiper,jQuery **/
 (function () {
     function genCarousel() {
@@ -1377,6 +1313,70 @@ $templateCache.put("src/components/gen-image/templates/bind-once/linked-image.ht
 (function () {
     'use strict';
 
+    function genAttr() {
+        return {
+            restrict: 'A',
+            link: function ($scope, $element, $attrs) {
+                var attr = $scope.$eval($attrs.genAttr),
+                    /**
+                     * Set attributes on element
+                     *
+                     * @param attrs
+                     */
+                    setAttrs = function (attrs) {
+                        _.forIn(attrs, function (v, k) {
+                            $element.attr(k, v);
+                        });
+                    };
+
+                $element.removeAttr('gen-attr');
+
+                if (attr) {
+                    setAttrs(attr);
+                }
+
+                $scope.$watch($attrs.genAttr, function (newVal, oldVal) {
+                    if (newVal !== oldVal) {
+                        setAttrs(newVal);
+                    }
+                });
+            }
+        };
+    }
+
+    angular.module('ui-generics').directive('genAttr', genAttr);
+})();
+(function () {
+    'use strict';
+
+    function genCompile($compile) {
+        // directive factory creates a link function
+        return function(scope, element, attrs) {
+            scope.$watch(
+                function (scope) {
+                    // watch the 'compile' expression for changes
+                    return scope.$eval(attrs.genCompile);
+                },
+                function (value) {
+                    // when the 'compile' expression changes
+                    // assign it into the current DOM
+                    element.html(value);
+
+                    // compile the new DOM and link it to the current
+                    // scope.
+                    // NOTE: we only compile .childNodes so that
+                    // we don't get into infinite loop compiling ourselves
+                    $compile(element.contents())(scope);
+                }
+            );
+        };
+    }
+
+    angular.module('ui-generics').directive('genCompile', genCompile);
+})();
+(function () {
+    'use strict';
+
     /** @ngInject */
     function genField() {
         var templateDir= 'src/components/copied/gen-field/';
@@ -1433,6 +1433,211 @@ $templateCache.put("src/components/gen-image/templates/bind-once/linked-image.ht
 
 })();
 
+(function () {
+    'use strict';
+
+    function genImage() {
+
+        function genImageController() {
+            var vm = this,
+                templateDir = 'src/components/gen-image/templates/',
+                templates = {
+                    bgImage: 'image-bg.html',
+                    bottomTextImage: 'image-bottom-text.html',
+                    bottomTextImageLinked: 'linked-image-bottom-text.html',
+                    checkboxImage: 'image-checkbox.html',
+                    full: 'image-full.html',
+                    fullContent: 'image-full-content.html',
+                    imageOnly: 'image-only.html',
+                    linkedImage: 'linked-image.html',
+                    topTextImage: 'image-top-text.html',
+                    topTextImageLinked: 'linked-image-top-text.html'
+                },
+                /**
+                 * Build attributes for the image
+                 */
+                buildAttrs = function () {
+                    vm.image.attrs = {
+                        alt: vm.image.altText || vm.image.text || '',
+                        class: vm.image.class,
+                        src: vm.image.src || '',
+                        title: vm.image.titleText || vm.image.altText || vm.image.text || '',
+                        bindOnce: vm.image.bindOnce || false
+                    };
+                },
+                /**
+                 * Setup this Image's Properties
+                 *
+                 * @param img
+                 */
+                setupImg = function (img) {
+                    img = img || {};
+                    vm.image = _.extend({}, img);
+                    vm.image.templateDir = templateDir + (img.bindOnce ? 'bind-once/' : '');
+                    vm.image.templates = {};
+
+                    _.forIn(templates, function (v, k) {
+                        vm.image.templates[k] = templateDir + v;
+                    });
+
+                    buildAttrs();
+
+                    //image with checkbox
+                    if (img.hasOwnProperty('checkbox')) {
+                        vm.image.template = vm.image.templates.checkboxImage;
+                        return;
+                    }
+
+                    //background image
+                    if (img.bg) {
+                        vm.image.template = vm.image.templates.bgImage;
+                        return;
+                    }
+
+                    //linked image with top text
+                    if (img.link && img.topText) {
+                        vm.image.template = vm.image.templates.topTextImageLinked;
+                        return;
+                    }
+
+                    //image with top text
+                    if (img.topText) {
+                        vm.image.template = vm.image.templates.topTextImage;
+                        return;
+                    }
+
+                    //linked image with text (bottom)
+                    if (img.link && img.text) {
+                        vm.image.template = vm.image.templates.bottomTextImageLinked;
+                        return;
+                    }
+
+                    //image with text (bottom)
+                    if (img.text) {
+                        vm.image.template = vm.image.templates.bottomTextImage;
+                        return;
+                    }
+
+                    //linked image
+                    if (img.src && img.link) {
+                        vm.image.template = vm.image.templates.linkedImage;
+                    }
+
+                    //linked image with top text and bottom text
+                    if (img.topText && img.text && img.src && img.link) {
+                        vm.image.template = vm.image.templates.full;
+                    }
+
+                    //image only
+                    if (!vm.image.template) {
+                        vm.image.template = vm.image.templates.imageOnly;
+                    }
+                };
+
+            /**
+             * Initialization
+             */
+            vm.$onInit = function () {
+                setupImg(vm.obj);
+            };
+
+            /**
+             * Handle scope changes
+             *
+             * @param changes
+             */
+            vm.$onChanges = function (changes) {
+                if (changes.obj) {
+                    setupImg(changes.obj.currentValue);
+                }
+            };
+        }
+
+        return {
+            restrict: 'A',
+            scope: {
+                obj: '<genObj'
+            },
+            templateUrl: 'src/components/gen-image/gen-image.html',
+            controller: genImageController,
+            controllerAs: 'vm',
+            bindToController: true
+        };
+    }
+
+    angular.module('ui-generics').directive('genImage', genImage);
+})();
+
+(function () {
+    'use strict';
+
+    function genHref($state) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var path = attrs.genHref,
+                    options = (attrs.hasOwnProperty('genHrefOptions') && attrs.genHrefOptions) ? scope.$eval(attrs.genHrefOptions) : null,
+                    params = (options && options.hasOwnProperty('params')) ? options.params : null,
+                    disableItemProp = attrs.hasOwnProperty('genHrefDisableItemProp');
+
+                element.removeAttr('gen-href-options');
+                element.removeAttr('gen-href-disable-item-prop');
+
+                if (!attrs.hasOwnProperty('itemprop') && !disableItemProp) {
+                    element.attr('itemprop', 'url');
+                }
+
+                /**
+                 * Setup for the link
+                 */
+                function setup() {
+                    element.unbind('click');
+                    element.removeAttr('href');
+
+                    if (path === '' || path === '#') {
+                        element.attr('href', 'javascript:void(0)');
+                    } else if (!path.indexOf('#')) { //starts with #
+                        element.bind('click', function () {
+                            var el = jQuery(path);
+
+                            jQuery('html,body').animate({
+                                scrollTop: el.offset().top - 150
+                            }, 'fast');
+                        });
+                    } else if (!path.indexOf('tel') || !path.indexOf('mail')) {
+                        element.attr('href', path);
+                    } else {
+                        element.attr('href', path);
+
+                        if (options && options.hasOwnProperty('click')) {
+                            element.bind('click', function () {
+                                options.click(path, params);
+                                return false;
+                            });
+                        } else {
+                            //assume a state
+                            element.bind('click', function () {
+                              $state.go(path, params);
+                              return false;
+                            });
+                        }
+                    }
+                }
+
+                setup();
+
+                attrs.$observe('genHref', function (newVal) {
+                    if (newVal !== path) {
+                        path = newVal;
+                        setup();
+                    }
+                });
+            }
+        };
+    }
+
+    angular.module('ui-generics').directive('genHref', genHref);
+})();
 (function () {
     'use strict';
 
@@ -1570,210 +1775,6 @@ $templateCache.put("src/components/gen-image/templates/bind-once/linked-image.ht
         .module('ui-generics')
         .directive('genMenu', genMenu);
 
-})();
-
-(function () {
-    'use strict';
-
-    function genHref($state) {
-        return {
-            restrict: 'A',
-            link: function (scope, element, attrs) {
-                var path = attrs.genHref,
-                    options = (attrs.hasOwnProperty('genHrefOptions') && attrs.genHrefOptions) ? scope.$eval(attrs.genHrefOptions) : null,
-                    params = (options && options.hasOwnProperty('params')) ? options.params : null,
-                    disableItemProp = attrs.hasOwnProperty('genHrefDisableItemProp');
-
-                element.removeAttr('gen-href-options');
-                element.removeAttr('gen-href-disable-item-prop');
-
-                if (!attrs.hasOwnProperty('itemprop') && !disableItemProp) {
-                    element.attr('itemprop', 'url');
-                }
-
-                /**
-                 * Setup for the link
-                 */
-                function setup() {
-                    element.unbind('click');
-                    element.removeAttr('href');
-
-                    if (path === '' || path === '#') {
-                        element.attr('href', 'javascript:void(0)');
-                    } else if (!path.indexOf('#')) { //starts with #
-                        element.bind('click', function () {
-                            var el = jQuery(path);
-
-                            jQuery('html,body').animate({
-                                scrollTop: el.offset().top - 150
-                            }, 'fast');
-                        });
-                    } else if (!path.indexOf('tel') || !path.indexOf('mail')) {
-                        element.attr('href', path);
-                    } else {
-                        element.attr('href', path);
-
-                        if (options && options.hasOwnProperty('click')) {
-                            element.bind('click', function () {
-                                options.click(path, params);
-                                return false;
-                            });
-                        } else {
-                            //assume a state
-                            element.bind('click', function () {
-                              $state.go(path, params);
-                            });
-                        }
-                    }
-                }
-
-                setup();
-
-                attrs.$observe('genHref', function (newVal) {
-                    if (newVal !== path) {
-                        path = newVal;
-                        setup();
-                    }
-                });
-            }
-        };
-    }
-
-    angular.module('ui-generics').directive('genHref', genHref);
-})();
-(function () {
-    'use strict';
-
-    function genImage() {
-
-        function genImageController() {
-            var vm = this,
-                templateDir = 'src/components/gen-image/templates/',
-                templates = {
-                    bgImage: 'image-bg.html',
-                    bottomTextImage: 'image-bottom-text.html',
-                    bottomTextImageLinked: 'linked-image-bottom-text.html',
-                    checkboxImage: 'image-checkbox.html',
-                    full: 'image-full.html',
-                    fullContent: 'image-full-content.html',
-                    imageOnly: 'image-only.html',
-                    linkedImage: 'linked-image.html',
-                    topTextImage: 'image-top-text.html',
-                    topTextImageLinked: 'linked-image-top-text.html'
-                },
-                /**
-                 * Build attributes for the image
-                 */
-                buildAttrs = function () {
-                    vm.image.attrs = {
-                        alt: vm.image.altText || vm.image.text || '',
-                        class: vm.image.class,
-                        src: vm.image.src || '',
-                        title: vm.image.titleText || vm.image.altText || vm.image.text || '',
-                        bindOnce: vm.image.bindOnce || false
-                    };
-                },
-                /**
-                 * Setup this Image's Properties
-                 *
-                 * @param img
-                 */
-                setupImg = function (img) {
-                    img = img || {};
-                    vm.image = _.extend({}, img);
-                    vm.image.templateDir = templateDir + (img.bindOnce ? 'bind-once/' : '');
-                    vm.image.templates = {};
-
-                    _.forIn(templates, function (v, k) {
-                        vm.image.templates[k] = templateDir + v;
-                    });
-
-                    buildAttrs();
-
-                    //image with checkbox
-                    if (img.hasOwnProperty('checkbox')) {
-                        vm.image.template = vm.image.templates.checkboxImage;
-                        return;
-                    }
-
-                    //background image
-                    if (img.bg) {
-                        vm.image.template = vm.image.templates.bgImage;
-                        return;
-                    }
-
-                    //linked image with top text
-                    if (img.link && img.topText) {
-                        vm.image.template = vm.image.templates.topTextImageLinked;
-                        return;
-                    }
-
-                    //image with top text
-                    if (img.topText) {
-                        vm.image.template = vm.image.templates.topTextImage;
-                        return;
-                    }
-
-                    //linked image with text (bottom)
-                    if (img.link && img.text) {
-                        vm.image.template = vm.image.templates.bottomTextImageLinked;
-                        return;
-                    }
-
-                    //image with text (bottom)
-                    if (img.text) {
-                        vm.image.template = vm.image.templates.bottomTextImage;
-                        return;
-                    }
-
-                    //linked image
-                    if (img.src && img.link) {
-                        vm.image.template = vm.image.templates.linkedImage;
-                    }
-
-                    //linked image with top text and bottom text
-                    if (img.topText && img.text && img.src && img.link) {
-                        vm.image.template = vm.image.templates.full;
-                    }
-
-                    //image only
-                    if (!vm.image.template) {
-                        vm.image.template = vm.image.templates.imageOnly;
-                    }
-                };
-
-            /**
-             * Initialization
-             */
-            vm.$onInit = function () {
-                setupImg(vm.obj);
-            };
-
-            /**
-             * Handle scope changes
-             *
-             * @param changes
-             */
-            vm.$onChanges = function (changes) {
-                if (changes.obj) {
-                    setupImg(changes.obj.currentValue);
-                }
-            };
-        }
-
-        return {
-            restrict: 'A',
-            scope: {
-                obj: '<genObj'
-            },
-            templateUrl: 'src/components/gen-image/gen-image.html',
-            controller: genImageController,
-            controllerAs: 'vm',
-            bindToController: true
-        };
-    }
-
-    angular.module('ui-generics').directive('genImage', genImage);
 })();
 
 })();
